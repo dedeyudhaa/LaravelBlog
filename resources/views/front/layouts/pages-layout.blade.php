@@ -13,10 +13,10 @@
     <meta charset="utf-8">
     <title>@yield('pageTitle')</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5">
-    <meta name="description" content="This is meta description">
-    <meta name="author" content="Themefisher">
-    <link rel="shortcut icon" href="/front/images/favicon.png" type="image/x-icon">
-    <link rel="icon" href="/front/images/favicon.png" type="image/x-icon">
+    <meta name="description" content="{{ blogInfo()->blog_description }}">
+    <meta name="author" content="{{ blogInfo()->blog_name }}">
+    <link rel="shortcut icon" href="{{ blogInfo()->blog_favicon }}" type="image/x-icon">
+    <link rel="icon" href="{{ blogInfo()->blog_favicon }}" type="image/x-icon">
 
     <!-- theme meta -->
     <meta name="theme-name" content="reporter" />

@@ -16,7 +16,7 @@ class Categories extends Component
     public $updateCategoryMode = false;
 
     public $subcategory_name;
-    public $parent_category;
+    public $parent_category = 0;
     public $selected_subcategory_id;
     public $updateSubCategoryMode = false;
 

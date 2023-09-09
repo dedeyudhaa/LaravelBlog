@@ -6,3 +6,4 @@ Bahan :
 4. Jquery UI --> https://jqueryui.com/download/
 5. ckeditor 4 --> https://ckeditor.com/ckeditor-4/
 6. Elfinder --> https://github.com/barryvdh/laravel-elfinder
+7. Jquery Suggestags -> https://github.com/amsify42/jquery.amsify.suggestags

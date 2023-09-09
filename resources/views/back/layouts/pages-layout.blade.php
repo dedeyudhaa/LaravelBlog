@@ -29,6 +29,8 @@
     <link rel="stylesheet" href="/jquery-ui-1.13.2/jquery-ui.structure.min.css">
     <link rel="stylesheet" href="/jquery-ui-1.13.2/jquery-ui.theme.min.css">
 
+    <link rel="stylesheet" href="/amsify/amsify.suggestags.css">
+
     @stack('stylesheets')
     {{-- laravel livewire docs --> lihat di https://laravel-livewire.com/docs/2.x/quickstart --}}
     @livewireStyles 
@@ -73,6 +75,7 @@
     <script src="/back/dist/libs/apexcharts/dist/apexcharts.min.js?1684106062" defer></script>
 
     <script src="/jquery-ui-1.13.2/jquery-ui.min.js"></script>
+    <script src="/amsify/jquery.amsify.suggestags.js"></script>
     
     <!-- Tabler Core -->
     <script src="/back/dist/js/tabler.min.js?1684106062" defer></script>
@@ -80,6 +83,9 @@
     @stack('scripts')
     @livewireScripts
     <script>
+
+      $('input[name="post_tags"]').amsifySuggestags();
+
       window.addEventListener('showToaster', function(event){
         toastr.remove();
         if(event.detail.type === 'info'){

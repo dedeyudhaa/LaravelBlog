@@ -25,6 +25,10 @@
     <link rel="stylesheet" href="/back/dist/libs/ijabo/ijabo.min.css">
     <link rel="stylesheet" href="/back/dist/libs/ijaboCropTool/ijaboCropTool.min.css">
 
+    <link rel="stylesheet" href="/jquery-ui-1.13.2/jquery-ui.min.css">
+    <link rel="stylesheet" href="/jquery-ui-1.13.2/jquery-ui.structure.min.css">
+    <link rel="stylesheet" href="/jquery-ui-1.13.2/jquery-ui.theme.min.css">
+
     @stack('stylesheets')
     {{-- laravel livewire docs --> lihat di https://laravel-livewire.com/docs/2.x/quickstart --}}
     @livewireStyles 
@@ -67,9 +71,9 @@
     <script src="/back/dist/libs/ijaboCropTool/ijaboCropTool.min.js"></script>
     <script src="/back/dist/libs/ijaboViewer/jquery.ijaboViewer.min.js"></script>
     <script src="/back/dist/libs/apexcharts/dist/apexcharts.min.js?1684106062" defer></script>
-    <script src="/back/dist/libs/jsvectormap/dist/js/jsvectormap.min.js?1684106062" defer></script>
-    <script src="/back/dist/libs/jsvectormap/dist/maps/world.js?1684106062" defer></script>
-    <script src="/back/dist/libs/jsvectormap/dist/maps/world-merc.js?1684106062" defer></script>
+
+    <script src="/jquery-ui-1.13.2/jquery-ui.min.js"></script>
+    
     <!-- Tabler Core -->
     <script src="/back/dist/js/tabler.min.js?1684106062" defer></script>
 

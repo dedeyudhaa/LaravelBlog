@@ -20,7 +20,13 @@ class Categories extends Component
     public $selected_subcategory_id;
     public $updateSubCategoryMode = false;
 
-    protected $listeners = ['resetModalForm','deleteCategoryAction','deleteSubCategoryAction'];
+    protected $listeners = [
+        'resetModalForm',
+        'deleteCategoryAction',
+        'deleteSubCategoryAction', 
+        'updateCategoryOrdering',
+        'updateSubCategoryOrdering'
+    ];
 
     public function resetModalForm()
     {
@@ -201,7 +207,34 @@ class Categories extends Component
             $subcategory->delete();
             $this->showToaster('Sub kategori berhasil dihapus, ','info');
         }
+    }
 
+
+    public function updateCategoryOrdering($positions)
+    {
+        // dd($positions);
+        foreach($positions as $position){
+            $index = $position[0];
+            $newPosition = $position[1];
+            Category::where('id', $index)->update([
+                'ordering' => $newPosition
+            ]);
+            $this->showToaster('Urutan kategory berhasil diperbarui','success');
+        }
+    }
+
+
+    public function updateSubCategoryOrdering($positions)
+    {
+         //dd($positions);
+        foreach($positions as $position){
+            $index = $position[0];
+            $newPosition = $position[1];
+            SubCategory::where('id', $index)->update([
+                'ordering' => $newPosition
+            ]);
+            $this->showToaster('Urutan sub kategory berhasil diperbarui','success');
+        }
     }
 
     public function showToaster($message, $type){

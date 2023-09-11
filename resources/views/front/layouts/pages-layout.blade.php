@@ -13,8 +13,9 @@
     <meta charset="utf-8">
     <title>@yield('pageTitle')</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5">
-    <meta name="description" content="{{ blogInfo()->blog_description }}">
-    <meta name="author" content="{{ blogInfo()->blog_name }}">
+
+    @yield('meta_tags')
+
     <link rel="shortcut icon" href="{{ blogInfo()->blog_favicon }}" type="image/x-icon">
     <link rel="icon" href="{{ blogInfo()->blog_favicon }}" type="image/x-icon">
 

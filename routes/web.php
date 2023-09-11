@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\BlogController;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,8 +14,15 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('front.pages.example');
-});
+// Route::get('/', function () {
+//     return view('front.pages.example');
+// });
+
+Route::view('/', 'front.pages.home')->name('home');
+
+Route::get('/article/{any}', [BlogController::class, 'readPost'])->name('read_post'); //display satu post/display detail post
+Route::get('/category/{any}', [BlogController::class, 'categoryPosts'])->name('category_posts'); //display semua post berdasarkan category
+Route::get('/posts/tag/{any}', [BlogController::class, 'tagPosts'])->name('tag_posts'); //display semua post berdasarkan tag
+Route::get('/search', [BlogController::class, 'searchBlog'])->name('search_posts'); //display semua post berdasar pencarian
 
 // ROUTE AUTHOR DIBUAT FILE BARU DI author.php + RouteServiceProvider, Authenticate, dan RedirectIfAuthenticate juga di edit

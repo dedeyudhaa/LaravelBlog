@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 use Cviebrock\EloquentSluggable\Sluggable;
+use PharIo\Manifest\Author;
 
 class Post extends Model
 {
@@ -37,5 +38,15 @@ class Post extends Model
         {
             $query->where('post_title','like',$term);
         });
+    }
+
+    public function subcategory()
+    {
+        return $this->belongsTo(SubCategory::class, 'subcategory_id','id');
+    }
+
+    public function author()
+    {
+        return $this->belongsTo(User::class, 'author_id','id');
     }
 }

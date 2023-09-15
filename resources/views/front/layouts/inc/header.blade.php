@@ -18,18 +18,20 @@
                     <li class="nav-item"> <a class="nav-link" href="about.html">About Me</a>
                     </li>
 
-                    @foreach (\App\Models\Category::whereHas('subcategories', function($q){
-                        $q->whereHas('posts');
-                    })->orderBy('ordering','asc')->get() as $category)
+                    {{-- CATEGORY YG PUNYA SUB CATEGORY --}}
+                    @foreach (\App\Models\Category::whereHas('subcategories', function($q){$q->whereHas('posts');})->orderBy('ordering','asc')->get()
+                     as $category)
                                             
                     <li class="nav-item dropdown"> <a class="nav-link dropdown-toggle" href="#" role="button"
                             data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             {{ $category->category_name }}
                         </a>
                         <div class="dropdown-menu"> 
-                            @foreach ( \App\Models\SubCategory::where('parent_category', $category->id)->whereHas('posts')->orderBy('ordering','asc')->get() as $subcategory )
+                            {{-- TAMPIL SEMUA SUBCATEGORY BERDASAR PARENT CATEGORY--}}
+                            @foreach ( \App\Models\SubCategory::where('parent_category', $category->id)->whereHas('posts')->orderBy('ordering','asc')->get() 
+                            as $subcategory )
                                 
-                            <a class="dropdown-item" href="">{{ $subcategory->subcategory_name }}</a>
+                            <a class="dropdown-item" href="{{ route('category_posts', $subcategory->slug) }}">{{ $subcategory->subcategory_name }}</a>
                            
                             @endforeach
                         </div>
@@ -37,8 +39,9 @@
                     
                     @endforeach
 
+                    {{-- SUB CATEGORY YG TIDAK ADA PARENT CATEGORY --}}
                     @foreach ( \App\Models\Subcategory::where('parent_category', 0)->whereHas('posts')->get() as $subcategory)
-                        <li class="nav-item"> <a class="nav-link" href="">{{ $subcategory->subcategory_name }}</a>
+                        <li class="nav-item"> <a class="nav-link" href="{{ route('category_posts', $subcategory->slug) }}">{{ $subcategory->subcategory_name }}</a>
                         </li>
                     @endforeach
 

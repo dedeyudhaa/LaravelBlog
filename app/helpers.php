@@ -68,7 +68,11 @@ if( !function_exists('isOnline') ){
 
  if( !function_exists('single_latest_post') ){
     function single_latest_post(){
-        return Post::with('author')->with('subcategory')->limit(1)->orderBy('created_at','desc')->first();
+        
+        if (request()->is('/') && !request()->has('page')) {
+            return Post::with('author')->with('subcategory')->limit(1)->orderBy('created_at','desc')->first();
+        }
+        
     }
  }
 
@@ -78,7 +82,14 @@ if( !function_exists('isOnline') ){
 
   if( !function_exists('latest_home_6posts') ){
     function latest_home_6posts(){
-        return Post::with('author')->with('subcategory')->skip(1)->limit(6)->orderBy('created_at','desc')->get();
+
+        // Cek apakah ada parameter 'page'
+    if (request()->has('page')) {
+        return Post::with('author')->with('subcategory')->orderBy('created_at', 'desc')->paginate(6);
+    } else {
+        return Post::with('author')->with('subcategory')->orderBy('created_at', 'desc')->skip(1)->paginate(6);
+    }
+        //return Post::with('author')->with('subcategory')->skip(1)->limit(6)->orderBy('created_at','desc')->get();
     }
   }
 
@@ -100,4 +111,3 @@ if( !function_exists('categories') ){
         return SubCategory::whereHas('posts')->with('posts')->orderBy('subcategory_name','asc')->get();
     }
 }
-?>

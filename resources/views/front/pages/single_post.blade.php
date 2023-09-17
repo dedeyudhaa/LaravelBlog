@@ -5,12 +5,12 @@
 
     <meta name="title" content="{{ Str::ucfirst($post->post_title) }}">
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
-    <meta name="description" content="{{ Str::ucfirst(words($post->post_content,120)) }}">
+    <meta name="description" content="{{ Str::ucfirst(words($post->post_content, 120)) }}">
     <meta name="author" content="{{ $post->author->username }}">
     <link rel="cannonical" href="{{ route('read_post', $post->post_slug) }}">
     <meta property="og:title" content="{{ Str::ucfirst($post->post_title) }}">
     <meta property="og:type" content="article">
-    <meta property="og:description" content="{{ Str::ucfirst($post->post_content,120) }}">
+    <meta property="og:description" content="{{ Str::ucfirst($post->post_content, 120) }}">
     <meta property="og:url" content="{{ route('read_post', $post->post_slug) }}">
     <meta property="og:image" content="/storage/images/post_images/thumbnails/resized_{{ $post->featured_image }}">
     <meta name="twitter:domain" content="{{ Request::getHost() }}">
@@ -26,7 +26,8 @@
     <div class="row">
         <div class="col-lg-8 mb-5 mb-lg-0">
             <article>
-                <img loading="lazy" decoding="async" src="/storage/images/post_images/{{ $post->featured_image }}" alt="Post Thumbnail" class="w-100">
+                <img loading="lazy" decoding="async" src="/storage/images/post_images/{{ $post->featured_image }}"
+                    alt="Post Thumbnail" class="w-100">
                 <ul class="post-meta mb-2 mt-4">
                     <li>
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
@@ -42,17 +43,42 @@
                 </ul>
                 <h1 class="my-3">{{ $post->post_title }}</h1>
                 <ul class="post-meta mb-4">
-                    <li> <a href="{{ route('category_posts', $post->subcategory->slug) }}">{{ $post->subcategory->subcategory_name }}</a>
+                    <li> <a
+                            href="{{ route('category_posts', $post->subcategory->slug) }}">{{ $post->subcategory->subcategory_name }}</a>
                     </li>
                 </ul>
                 <div class="content text-left">
-                    
+
                     <p>{!! $post->post_content !!}</p>
 
                 </div>
             </article>
-            <div class="mt-5">
+
+            
+            {{-- RELATED POST --}}
+            @if ( count($related_posts) > 0 )
                 
+            <div class="widget-list mt-5">
+                <h2 class="mb-2">Related posts</h2>
+                
+                @foreach ($related_posts as $item)
+                
+                <a class="media align-items-center" href="{{ route('read_post', $item->post_slug) }}">
+                    <img loading="lazy" decoding="async" src="/storage/images/post_images/thumbnails/thumb_{{ $item->featured_image }}" alt="Post Thumbnail" class="w-100">
+                    <div class="media-body ml-3">
+                        <h3 style="margin-top:-5px">{{ $item->post_title }}</h3>
+                        <p class="mb-0 small">{!! Str::ucfirst(words($item->post_content, 25)) !!}</p>
+                    </div>
+                </a>
+                    
+                @endforeach
+            </div>
+            
+            @endif
+
+
+            <div class="mt-5">
+
             </div>
         </div>
         <div class="col-lg-4">
@@ -134,7 +160,7 @@
                             <h2 class="section-title mb-3">Categories</h2>
                             <div class="widget-body">
                                 <ul class="widget-list">
-                                    @include('front.layouts.inc.categories_list')                                    
+                                    @include('front.layouts.inc.categories_list')
                                 </ul>
                             </div>
                         </div>

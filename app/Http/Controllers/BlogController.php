@@ -72,9 +72,21 @@ class BlogController extends Controller
         } else{
             $post = Post::where('post_slug', $slug)->with('subcategory')->with('author')->first();
 
+            $post_tags = explode(',',$post->post_tags);
+            $related_posts = Post::where('id', '!=', $post->id)
+                                    ->where(function($query) use ($post_tags, $post){
+                                        foreach($post_tags as $item){
+                                            $query->orWhere('post_tags','LIKE',"%$item%")->orWhere('post_title','LIKE',"%$item%");
+                                        } 
+                                    })
+                                    ->inRandomOrder()
+                                    ->take(3)
+                                    ->get();
+
             $data = [
                 'pageTitle' => Str::ucfirst($post->post_title),
-                'post' => $post
+                'post' => $post,
+                'related_posts' => $related_posts
             ];
 
             return view('front.pages.single_post', $data);

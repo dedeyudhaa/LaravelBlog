@@ -31,6 +31,7 @@
 
     <!-- # CSS Plugins -->
     <link rel="stylesheet" href="/front/plugins/bootstrap/bootstrap.min.css">
+    @stack('stylesheets')
 
     <!-- # Main Style Sheet -->
     <link rel="stylesheet" href="/front/css/style.css">
@@ -53,28 +54,11 @@
 
     {{-- FOOTER --}}
     @include('front.layouts.inc.footer')
-    
-    <script>
-        window.addEventListener('showToaster', function(event){
-        toastr.remove();
-        if(event.detail.type === 'info'){
-          toastr.info(event.detail.message);
-        }else if(event.detail.type === 'success'){
-          toastr.success(event.detail.message);
-        }else if(event.detail.type === 'error'){
-          toastr.error(event.detail.message);
-        }else if(event.detail.type === 'warning'){
-          toastr.warning(event.detail.message);
-        } else {
-          return false;
-        }
-      })
-    </script>
-
 
     <!-- # JS Plugins -->
     <script src="/front/plugins/jquery/jquery.min.js"></script>
     <script src="/front/plugins/bootstrap/bootstrap.min.js"></script>
+    @stack('scripts')
 
     <!-- Main Script -->
     <script src="/front/js/script.js"></script>

@@ -1,5 +1,26 @@
 @extends('front.layouts.pages-layout')
 @section('pageTitle', isset($pageTitle) ? $pageTitle : 'Selamat Datang di Laravel Blog')
+
+@section('meta_tags')
+
+    <meta name="title" content="{{ Str::ucfirst($post->post_title) }}">
+    <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
+    <meta name="description" content="{{ Str::ucfirst(words($post->post_content,120)) }}">
+    <meta name="author" content="{{ $post->author->username }}">
+    <link rel="cannonical" href="{{ route('read_post', $post->post_slug) }}">
+    <meta property="og:title" content="{{ Str::ucfirst($post->post_title) }}">
+    <meta property="og:type" content="article">
+    <meta property="og:description" content="{{ Str::ucfirst($post->post_content,120) }}">
+    <meta property="og:url" content="{{ route('read_post', $post->post_slug) }}">
+    <meta property="og:image" content="/storage/images/post_images/thumbnails/resized_{{ $post->featured_image }}">
+    <meta name="twitter:domain" content="{{ Request::getHost() }}">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="{{ Str::ucfirst($post->post_title) }}">
+    <meta name="twitter:description" content="{{ Str::ucfirst(words($post->post_content, 120)) }}">
+    <meta name="twitter:image" content="/storage/images/post_images/thumbnails/resized_{{ $post->featured_image }}">
+
+@endsection
+
 @section('content')
 
     <div class="row">

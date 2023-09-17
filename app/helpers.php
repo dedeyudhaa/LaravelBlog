@@ -157,3 +157,12 @@ if( !function_exists('sendMail') ){
         }
     }
 }
+
+/**
+ * ALL tags post
+ */
+if( !function_exists('all_tags') ){
+    function all_tags(){
+        return Post::where('post_tags', '!=', null)->distinct()->pluck('post_tags')->join(',');
+    }
+}

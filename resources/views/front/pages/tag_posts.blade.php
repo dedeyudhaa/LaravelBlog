@@ -43,7 +43,7 @@
                     </div>
 
                 @empty
-                    <span class="text-danger">Postingan tidak ditemukan</span>
+                    <span class="text-danger">Belum ada postingan</span>
                 @endforelse
             </div>
 

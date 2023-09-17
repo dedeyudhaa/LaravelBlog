@@ -27,8 +27,8 @@
                             </a>
                             <div class="card-body px-0 pb-0">
                                 <ul class="post-meta mb-2">
-                                    <li> <a href="#!">travel</a>
-                                        <a href="#!">news</a>
+                                    <li> <a
+                                            href="{{ route('category_posts', $item->subcategory->slug) }}">{{ $item->subcategory->subcategory_name }}</a>
                                     </li>
                                 </ul>
                                 <h2><a class="post-title"
@@ -60,34 +60,22 @@
         <div class="col-lg-4">
             <div class="widget-blocks">
                 <div class="row">
-                    <div class="col-lg-12">
-                        <div class="widget">
-                            <div class="widget-body">
-                                <img loading="lazy" decoding="async" src="/front/images/author.jpg" alt="About Me"
-                                    class="w-100 author-thumb-sm d-block">
-                                <h2 class="widget-title my-3">Hootan Safiyari</h2>
-                                <p class="mb-3 pb-2">Hello, I’m Hootan Safiyari. A Content writter, Developer and Story
-                                    teller. Working as a Content writter at CoolTech Agency. Quam nihil …</p> <a
-                                    href="about.html" class="btn btn-sm btn-outline-primary">Know
-                                    More</a>
-                            </div>
-                        </div>
-                    </div>
                     <div class="col-lg-12 col-md-6">
                         <div class="widget">
                             <h2 class="section-title mb-3">Latest posts</h2>
                             <div class="widget-body">
                                 <div class="widget-list">
                                     @foreach (latest_sidebar_posts() as $item)
-                                        
-                                    <a class="media align-items-center" href="{{ route('read_post', $item->post_slug) }}">
-                                        <img loading="lazy" decoding="async" src="/storage/images/post_images/thumbnails/thumb_{{ $item->featured_image }}" alt="Post Thumbnail" class="w-100">
-                                        <div class="media-body ml-3">
-                                            <h3 style="margin-top:-5px">{{ $item->post_title }}</h3>
-                                            <p class="mb-0 small">{!! Str::ucfirst(words($item->post_content, 15)) !!}</p>
-                                        </div>
-                                    </a>
-                                    
+                                        <a class="media align-items-center"
+                                            href="{{ route('read_post', $item->post_slug) }}">
+                                            <img loading="lazy" decoding="async"
+                                                src="/storage/images/post_images/thumbnails/thumb_{{ $item->featured_image }}"
+                                                alt="Post Thumbnail" class="w-100">
+                                            <div class="media-body ml-3">
+                                                <h3 style="margin-top:-5px">{{ $item->post_title }}</h3>
+                                                <p class="mb-0 small">{!! Str::ucfirst(words($item->post_content, 15)) !!}</p>
+                                            </div>
+                                        </a>
                                     @endforeach
                                 </div>
                             </div>
@@ -95,20 +83,39 @@
                     </div>
 
                     @if (categories())
-                        
-                    <div class="col-lg-12 col-md-6">
-                        <div class="widget">
-                            <h2 class="section-title mb-3">Categories</h2>
-                            <div class="widget-body">
-                                <ul class="widget-list">
-                                    @include('front.layouts.inc.categories_list')
-                                </ul>
+                        <div class="col-lg-12 col-md-6">
+                            <div class="widget">
+                                <h2 class="section-title mb-3">Categories</h2>
+                                <div class="widget-body">
+                                    <ul class="widget-list">
+                                        @include('front.layouts.inc.categories_list')
+                                    </ul>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    
                     @endif
-                    
+
+                    @if (all_tags() != null)
+                        @php
+                            $allTagsString = all_tags();
+                            $allTagsArray = explode(',', $allTagsString);
+                        @endphp
+                        <div class="col-lg-12 col-md-6">
+                            <div class="widget">
+                                <h2 class="section-title mb-3">Tags</h2>
+                                <div class="widget-body">
+                                    <ul class="widget-list">
+                                        @foreach (array_unique($allTagsArray) as $tag)
+                                            <li><a href="{{ route('tag_posts', $tag) }}">#{{ $tag }}</a>
+                                            </li>
+                                        @endforeach
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+
+                    @endif
+
                 </div>
             </div>
         </div>

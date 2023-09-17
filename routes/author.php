@@ -18,11 +18,17 @@ Route::prefix('author')->name('author.')->group(function() {
         Route::post('/logout',[AuthorController::class, 'logout'])->name('logout');
         Route::view('/profile', 'back.pages.profile')->name('profile');
         Route::post('/change-profil-picture', [AuthorController::class, 'changeProfilePicture'])->name('change-profile-picture');
-        Route::view('/settings', 'back.pages.settings')->name('settings');
-        Route::post('/change-blog-logo', [AuthorController::class, 'changeBlogLogo'])->name('change-blog-logo');
-        Route::post('/change-blog-favicon', [AuthorController::class, 'changeBlogFavicon'])->name('change-blog-favicon');
-        Route::view('/authors', 'back.pages.authors')->name('authors');
-        Route::view('/categories', 'back.pages.categories')->name('categories');
+        
+        
+        
+        //HANYA ADMIN YG BISA AKSES
+        Route::middleware(['isAdmin'])->group(function(){
+            Route::view('/settings', 'back.pages.settings')->name('settings');
+            Route::post('/change-blog-logo', [AuthorController::class, 'changeBlogLogo'])->name('change-blog-logo');
+            Route::post('/change-blog-favicon', [AuthorController::class, 'changeBlogFavicon'])->name('change-blog-favicon');
+            Route::view('/authors', 'back.pages.authors')->name('authors');
+            Route::view('/categories', 'back.pages.categories')->name('categories');
+        });
 
 
         Route::prefix('posts')->name('posts.')->group(function(){

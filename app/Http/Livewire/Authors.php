@@ -84,12 +84,27 @@ class Authors extends Component
 
             if($saved) {
 
-                Mail::send('new-author-email-template', $data, function($message) use ($author_email, $author_name){
-                    $message->from('noreply@example.com', 'LaravelBlog');
-                    $message->to($author_email,$author_name)
-                    ->subject('Pembuatan Akun');
-                });
+                // Mail::send('new-author-email-template', $data, function($message) use ($author_email, $author_name){
+                //     $message->from('noreply@example.com', 'LaravelBlog');
+                //     $message->to($author_email,$author_name)
+                //     ->subject('Pembuatan Akun');
+                // });
 
+                //PHP MAILER
+
+                $mail_body = view('new-author-email-template', $data)->render();
+
+                $mailConfig = array(
+                    'mail_from_email' => env('EMAIL_FROM_ADDRESS'),
+                    'mail_from_name' => env('EMAIL_FROM_NAME'),
+                    'mail_recipient_email' => $author->email,
+                    'mail_recipient_name' => $author->name,
+                    'mail_subject' => 'Reset Password',
+                    'mail_body' => $mail_body
+                );
+        
+                sendMail($mailConfig);
+                
                 $this->showToaster('Author baru berhasil ditambahkan', 'success');
                 $this->name = $this->email = $this->username = $this->author_type = $this->direct_publisher = null;
                 $this->dispatchBrowserEvent('hide_add_author_modal');

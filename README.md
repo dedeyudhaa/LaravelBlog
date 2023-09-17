@@ -8,4 +8,5 @@ Bahan :
 6. Elfinder --> https://github.com/barryvdh/laravel-elfinder
 7. Jquery Suggestags -> https://github.com/amsify42/jquery.amsify.suggestags
 8. Jquery floating social share -> https://www.jqueryscript.net/social-media/jQuery-Plugin-For-Horizontal-Floating-Social-Share-Bar.html#:~:text=Floating%20Share%20is%20a%20jQuery,Whatsapp%2C%20Viber%2C%20and%20Email.
+9. php mailer -> https://github.com/PHPMailer/PHPMailer
 

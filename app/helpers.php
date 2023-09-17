@@ -6,6 +6,9 @@ use App\Models\SubCategory;
 use Illuminate\Support\Str;
 use Illuminate\Support\Carbon;
 
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
+
 if( !function_exists('blogInfo') ){
     function blogInfo(){
         return Setting::find(1);
@@ -118,5 +121,39 @@ if( !function_exists('categories') ){
 if( !function_exists('latest_sidebar_posts') ){
     function latest_sidebar_posts($except = null, $limit = 4){
         return Post::where('id', '!=', $except)->limit($limit)->orderBy('created_at', 'desc')->get();
+    }
+}
+
+/**
+ * kirim email dengan php mailer library
+ * => sendMail($mailConfig);
+ */
+if( !function_exists('sendMail') ){
+    function sendMail($mailConfig){
+        
+        require 'PHPMailer/src/Exception.php';
+        require 'PHPMailer/src/PHPMailer.php';
+        require 'PHPMailer/src/SMTP.php';
+
+        $mail = new PHPMailer(true);
+        $mail->SMTPDebug = 0;
+        $mail->isSMTP();
+        $mail->Host = env('EMAIL_HOST');
+        $mail->SMTPAuth = true;
+        $mail->Username = env('EMAIL_USERNAME');
+        $mail->Password = env('EMAIL_PASSWORD');
+        $mail->SMTPSecure = env('EMAIL_ENCRYPTION');
+        $mail->Port = env('EMAIL_PORT');
+        $mail->setFrom($mailConfig['mail_from_email'], $mailConfig['mail_from_name']);
+        $mail->addAddress($mailConfig['mail_recipient_email'], $mailConfig['mail_recipient_name']);
+        $mail->isHTML(true);
+        $mail->Subject = $mailConfig['mail_subject'];
+        $mail->Body = $mailConfig['mail_body'];
+
+        if( $mail->send() ){
+            return true;
+        } else{
+            return false;
+        }
     }
 }

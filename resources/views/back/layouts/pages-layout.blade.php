@@ -31,6 +31,8 @@
 
     <link rel="stylesheet" href="/amsify/amsify.suggestags.css">
 
+    <link rel="stylesheet" href="/font-awesome-4.7.0/css/font-awesome.min.css">
+
     @stack('stylesheets')
     {{-- laravel livewire docs --> lihat di https://laravel-livewire.com/docs/2.x/quickstart --}}
     @livewireStyles 
